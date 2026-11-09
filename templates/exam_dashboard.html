@@ -1,0 +1,52 @@
+
+{% extends "base.html" %}
+
+{% block title %}Examination Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="page-heading">
+    <div>
+        <h1>Examination Dashboard</h1>
+    </div>
+</div>
+
+<div class="section-heading">
+    <h2>Examination Operations</h2>
+</div>
+
+<div class="module-grid">
+
+    <a href="{{ url_for('exams') }}" class="management-card">
+        <span></span>
+        <h3>Exam Timetable</h3>
+    </a>
+
+    <a href="{{ url_for('allocations') }}" class="management-card">
+        <span></span>
+        <h3>Room Allocation</h3>
+    </a>
+
+    <a href="{{ url_for('staff_allocation') }}" class="management-card">
+        <span></span>
+        <h3>Staff Allocation</h3>
+    </a>
+
+    <a href="{{ url_for('seating') }}" class="management-card">
+        <span></span>
+        <h3>Student Seating</h3>
+    </a>
+
+    <a href="{{ url_for('optimize') }}" class="management-card">
+        <span></span>
+        <h3>Resource Optimization</h3>
+    </a>
+
+    <a href="{{ url_for('reports') }}" class="management-card">
+        <span></span>
+        <h3>Examination Reports</h3>
+    </a>
+
+</div>
+
+{% endblock %}

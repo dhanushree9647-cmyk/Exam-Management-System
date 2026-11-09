@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Student</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="student-container">
+        <h1>Student Details</h1>
+
+        <p><strong>Student ID:</strong> {{ student.id }}</p>
+        <p><strong>Student Name:</strong> {{ student.name }}</p>
+        <p><strong>Roll Number:</strong> {{ student.roll_no }}</p>
+        <p><strong>Course:</strong> {{ student.course }}</p>
+        <p><strong>Semester:</strong> {{ student.semester }}</p>
+
+        <br>
+
+        <a href="{{ url_for('students') }}">Back to Students</a>
+    </div>
+
+</body>
+</html>

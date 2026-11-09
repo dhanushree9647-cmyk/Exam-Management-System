@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Examination Reports</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f4f9;
+            margin: 0;
+            padding: 0;
+            color: #172b4d;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin: 5px 0 0;
+        }
+
+        h2 {
+            font-size: 18px;
+            margin: 0 0 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 0;
+            background: white;
+        }
+
+        th {
+            background: #e8eefc;
+            text-align: left;
+            padding: 10px;
+            border: 1px solid #26364d;
+            font-size: 12px;
+        }
+
+        td {
+            padding: 10px;
+            border: 1px solid #26364d;
+            font-size: 12px;
+        }
+
+        .print-button {
+            background: #2864e8;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 13px;
+        }
+
+        @media print {
+            .print-button,
+            .back-link {
+                display: none;
+            }
+
+            body {
+                background: white;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Examination Reports</h1>
+
+    <h2>Exam Timetable Report</h2>
+
+    <table>
+        <tr>
+            <th>Subject</th>
+            <th>Date</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Course</th>
+        </tr>
+
+        {% for exam in exams %}
+        <tr>
+            <td>{{ exam.subject_name }}</td>
+            <td>{{ exam.exam_date }}</td>
+            <td>{{ exam.start_time }}</td>
+            <td>{{ exam.end_time }}</td>
+            <td>{{ exam.course }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Room and Staff Allocation Report</h2>
+
+    <table>
+        <tr>
+            <th>Subject</th>
+            <th>Room</th>
+            <th>Staff</th>
+        </tr>
+
+        {% for allocation in allocations %}
+        <tr>
+            <td>{{ allocation.subject_name }}</td>
+            <td>{{ allocation.room_name }}</td>
+            <td>{{ allocation.staff_name or "Not Assigned" }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Student Seating Report</h2>
+
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>Student Name</th>
+            <th>Roll Number</th>
+            <th>Subject</th>
+            <th>Room</th>
+            <th>Seat Number</th>
+        </tr>
+
+        {% for seat in seating %}
+        <tr>
+            <td>{{ seat.name }}</td>
+            <td>{{ seat.roll_no }}</td>
+            <td>{{ seat.subject_name }}</td>
+            <td>{{ seat.room_name }}</td>
+            <td>{{ seat.seat_number }}</td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="5">No student seating records found.</td>
+        </tr>
+    {% endfor %}
+</table>
+
+    <br>
+
+    <button class="print-button" onclick="window.print()">
+        Print Reports
+    </button>
+
+    <br><br>
+
+    <a class="back-link" href="{{ url_for('dashboard') }}">
+        Back to Dashboard
+    </a>
+
+</body>
+</html>

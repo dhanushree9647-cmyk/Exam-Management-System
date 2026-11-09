@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Room Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        .room-container { padding: 25px; }
+        .room-form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .room-form input {
+            margin: 8px;
+            padding: 12px;
+        }
+        .room-table {
+            width: 100%;
+            background: white;
+            border-collapse: collapse;
+        }
+        .room-table th, .room-table td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .action-menu {
+            position: relative;
+            display: inline-block;
+        }
+        .action-menu summary {
+            display: block;
+            cursor: pointer;
+            font-size: 28px;
+            font-weight: bold;
+            color: #2563eb;
+            padding: 5px;
+            list-style: none;
+        }
+        .action-menu summary::-webkit-details-marker {
+            display: none;
+        }
+        .action-options {
+            position: absolute;
+            right: 0;
+            top: 35px;
+            background: white;
+            min-width: 130px;
+            box-shadow: 0 4px 12px rgba(0,0,0,.15);
+            border-radius: 8px;
+            z-index: 100;
+            padding: 8px;
+        }
+        .action-options a, .action-options button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            text-align: left;
+            text-decoration: none;
+            color: #333;
+            background: white;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .action-options a:hover,
+        .action-options button:hover {
+            background: #f1f5f9;
+        }
+        .delete-option { color: #dc2626 !important; }
+    </style>
+</head>
+
+<body>
+<div class="room-container">
+
+    <h1>Room Management</h1>
+
+    <form class="room-form" method="POST"
+          action="{{ url_for('rooms') }}">
+
+        <input type="text" name="room_name"
+               placeholder="Room Name" required>
+
+        <input type="number" name="capacity"
+               placeholder="Capacity" min="1" required>
+
+        <button type="submit">Add Room</button>
+    </form>
+
+    <h2>Room List</h2>
+
+    <table class="room-table">
+        <tr>
+            <th>ID</th>
+            <th>Room Name</th>
+            <th>Capacity</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for room in rooms %}
+        <tr>
+            <td>{{ room.id }}</td>
+            <td>{{ room.room_name }}</td>
+            <td>{{ room.capacity }}</td>
+
+            <td>
+                <details class="action-menu">
+                    <summary title="More options">&#8942;</summary>
+
+                    <div class="action-options">
+                        <a href="{{ url_for('view_room', room_id=room.id) }}">View</a>
+
+                        <a href="{{ url_for('edit_room', room_id=room.id) }}">Edit</a>
+
+                        <form method="POST"
+                              action="{{ url_for('delete_room', room_id=room.id) }}"
+                              onsubmit="return confirm('Delete this room?');">
+                            <button type="submit" class="delete-option">
+                                Delete
+                            </button>
+                        </form>
+                    </div>
+                </details>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+
+</div>
+</body>
+</html>

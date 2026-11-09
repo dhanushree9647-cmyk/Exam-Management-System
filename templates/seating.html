@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>Student Seating Arrangement</h1>
+
+    <!-- Automatic Seating Form -->
+    <div class="form-card">
+
+        <form method="POST">
+
+            <select name="exam_id" required>
+                <option value="">Select Examination</option>
+
+                {% for exam in exams %}
+                <option value="{{ exam.id }}">
+                    {{ exam.subject_name }} - {{ exam.exam_date }}
+                </option>
+                {% endfor %}
+
+            </select>
+
+            <input
+                type="number"
+                name="student_count"
+                min="1"
+                placeholder="Number of Students"
+                required
+            >
+
+            <button type="submit" class="btn-primary">
+                Generate Seating
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- Seating List -->
+    <h2>Student Seating List</h2>
+
+    <div class="table-card">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Roll Number</th>
+                    <th>Subject</th>
+                    <th>Room</th>
+                    <th>Seat Number</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for seat in seating %}
+                <tr>
+                    <td>{{ seat.roll_no }}</td>
+                    <td>{{ seat.subject_name }}</td>
+                    <td>{{ seat.room_name }}</td>
+                    <td>{{ seat.seat_number }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5" style="text-align:center;">
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+
+    </div>
+
+    <br>
+
+    <a href="{{ url_for('dashboard') }}">
+        Back to Dashboard
+    </a>
+
+</div>
+
+{% endblock %}

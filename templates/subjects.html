@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Subject Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        .subject-container { padding: 25px; }
+
+        .subject-form {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .subject-form input {
+            margin: 8px;
+            padding: 12px;
+        }
+
+        .subject-table {
+            width: 100%;
+            background: white;
+            border-collapse: collapse;
+        }
+
+        .subject-table th,
+        .subject-table td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .action-menu {
+            position: relative;
+            display: inline-block;
+        }
+
+        .action-menu summary {
+            display: block;
+            cursor: pointer;
+            font-size: 28px;
+            font-weight: bold;
+            color: #2563eb;
+            padding: 5px;
+            list-style: none;
+        }
+
+        .action-menu summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .action-options {
+            position: absolute;
+            right: 0;
+            top: 35px;
+            background: white;
+            min-width: 130px;
+            box-shadow: 0 4px 12px rgba(0,0,0,.15);
+            border-radius: 8px;
+            z-index: 100;
+            padding: 8px;
+        }
+
+        .action-options a,
+        .action-options button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            text-align: left;
+            text-decoration: none;
+            color: #333;
+            background: white;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .action-options a:hover,
+        .action-options button:hover {
+            background: #f1f5f9;
+        }
+
+        .delete-option {
+            color: #dc2626 !important;
+        }
+    </style>
+</head>
+
+<body>
+<div class="subject-container">
+
+    <h1>Subject Management</h1>
+
+    <form class="subject-form" method="POST"
+          action="{{ url_for('subjects') }}">
+
+        <input type="text" name="subject_name"
+               placeholder="Subject Name" required>
+
+        <input type="text" name="subject_code"
+               placeholder="Subject Code" required>
+
+        <button type="submit">Add Subject</button>
+    </form>
+
+    <h2>Subject List</h2>
+
+    <table class="subject-table">
+        <tr>
+            <th>ID</th>
+            <th>Subject Name</th>
+            <th>Subject Code</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for subject in subjects %}
+        <tr>
+            <td>{{ subject.id }}</td>
+            <td>{{ subject.subject_name }}</td>
+            <td>{{ subject.subject_code }}</td>
+
+            <td>
+                <details class="action-menu">
+                    <summary title="More options">&#8942;</summary>
+
+                    <div class="action-options">
+
+                        <a href="{{ url_for('view_subject', subject_id=subject.id) }}">
+                            View
+                        </a>
+
+                        <a href="{{ url_for('edit_subject', subject_id=subject.id) }}">
+                            Edit
+                        </a>
+
+                        <form method="POST"
+                              action="{{ url_for('delete_subject', subject_id=subject.id) }}"
+                              onsubmit="return confirm('Are you sure you want to delete this subject?');">
+
+                            <button type="submit" class="delete-option">
+                                Delete
+                            </button>
+                        </form>
+
+                    </div>
+                </details>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+
+</div>
+</body>
+</html>

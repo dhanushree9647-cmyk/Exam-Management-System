@@ -1,0 +1,16 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Subject</title>
+</head>
+<body>
+    <h1>Subject Details</h1>
+
+    <p><b>ID:</b> {{ subject.id }}</p>
+    <p><b>Subject Name:</b> {{ subject.subject_name }}</p>
+    <p><b>Subject Code:</b> {{ subject.subject_code }}</p>
+
+    <a href="{{ url_for('subjects') }}">Back to Subjects</a>
+</body>
+</html>

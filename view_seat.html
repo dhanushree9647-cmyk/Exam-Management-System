@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Student Seating</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h1>Student Seating Details</h1>
+
+<p><b>Student Name:</b> {{ seat.name }}</p>
+<p><b>Roll Number:</b> {{ seat.roll_no }}</p>
+<p><b>Course:</b> {{ seat.course }}</p>
+<p><b>Semester:</b> {{ seat.semester }}</p>
+<p><b>Subject:</b> {{ seat.subject_name }}</p>
+<p><b>Exam Date:</b> {{ seat.exam_date }}</p>
+<p><b>Room:</b> {{ seat.room_name }}</p>
+<p><b>Seat Number:</b> {{ seat.seat_number }}</p>
+
+<a href="{{ url_for('seating') }}">Back to Seating</a>
+
+</body>
+</html>

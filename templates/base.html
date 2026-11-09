@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Exam Management System{% endblock %}</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+            <p>College Management</p>
+        </div>
+
+        {% if request.endpoint == 'exam_dashboard' %}
+
+            <p class="menu-heading">EXAMINATION MENU</p>
+
+            <a href="{{ url_for('exam_dashboard') }}"
+               class="menu-link {% if request.endpoint == 'exam_dashboard' %}active{% endif %}">
+                <span></span> Dashboard
+            </a>
+
+            <a href="{{ url_for('exams') }}" class="menu-link">
+                <span></span> Exam Timetable
+            </a>
+
+            <a href="{{ url_for('allocations') }}" class="menu-link">
+                <span></span> Room Allocation
+            </a>
+
+            <a href="{{ url_for('staff_allocation') }}" class="menu-link">
+                <span></span> Staff Allocation
+            </a>
+
+            <a href="{{ url_for('seating') }}" class="menu-link">
+                <span></span> Student Seating
+            </a>
+
+            <a href="{{ url_for('optimize') }}" class="menu-link">
+                <span></span> Resource Optimization
+            </a>
+
+            <a href="{{ url_for('reports') }}" class="menu-link">
+                <span></span> Reports
+            </a>
+
+            <a href="{{ url_for('dashboard') }}" class="menu-link">
+                <span></span> Admin Dashboard
+            </a>
+
+        {% else %}
+
+            <p class="menu-heading">ADMIN MENU</p>
+
+            <a href="{{ url_for('dashboard') }}" class="menu-link active">
+                <span></span> Dashboard
+            </a>
+
+            <a href="{{ url_for('students') }}" class="menu-link">
+                <span></span> Student Management
+            </a>
+
+            <a href="{{ url_for('staff') }}" class="menu-link">
+                <span></span> Staff Management
+            </a>
+
+            <a href="{{ url_for('rooms') }}" class="menu-link">
+                <span></span> Room Management
+            </a>
+
+            <a href="{{ url_for('subjects') }}" class="menu-link">
+                <span></span> Subject Management
+            </a>
+
+            <a href="{{ url_for('exam_dashboard') }}" class="menu-link">
+                <span></span> Examination Dashboard
+            </a>
+
+        {% endif %}
+
+        <div class="sidebar-bottom">
+            <a href="{{ url_for('logout') }}" class="logout-link">
+                Logout
+            </a>
+        </div>
+
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <h3>College Examination Management System</h3>
+            </div>
+            <div class="admin-profile">
+                <span></span> Admin
+            </div>
+        </header>
+
+        <section class="page-content">
+            {% block content %}{% endblock %}
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+</html>

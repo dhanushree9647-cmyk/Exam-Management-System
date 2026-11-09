@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resource Optimization</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <h1>Resource Optimization</h1>
+
+    {% with messages = get_flashed_messages() %}
+        {% for message in messages %}
+            <p style="color: green;">{{ message }}</p>
+        {% endfor %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('optimize') }}">
+        <button type="submit">
+            Run Resource Optimization
+        </button>
+    </form>
+
+    <hr>
+
+    <h2>Optimization Results</h2>
+
+    {% if results %}
+
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>Subject</th>
+            <th>Students</th>
+            <th>Allocated Rooms</th>
+            <th>Allocated Staff</th>
+            <th>Status</th>
+        </tr>
+
+        {% for result in results %}
+        <tr>
+            <td>{{ result.subject_name }}</td>
+            <td>{{ result.student_count }}</td>
+            <td>{{ result.room_name }}</td>
+            <td>{{ result.staff_name }}</td>
+            <td>{{ result.status }}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+    {% else %}
+
+    <p>No exam records or optimization results available.</p>
+
+    {% endif %}
+
+    <br>
+
+    <a href="{{ url_for('dashboard') }}">
+        Back to Dashboard
+    </a>
+
+</body>
+</html>

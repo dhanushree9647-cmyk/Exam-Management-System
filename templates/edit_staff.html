@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Staff</title>
+</head>
+<body>
+    <h1>Edit Staff Details</h1>
+
+    <form method="POST">
+        <p>Staff Name</p>
+        <input type="text" name="name"
+               value="{{ member.name }}" required>
+
+        <p>Department</p>
+        <input type="text" name="department"
+               value="{{ member.department }}" required>
+
+        <br><br>
+        <button type="submit">Update Staff</button>
+    </form>
+
+    <br>
+    <a href="{{ url_for('staff') }}">Back to Staff</a>
+</body>
+</html>

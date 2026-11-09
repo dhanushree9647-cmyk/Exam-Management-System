@@ -1,0 +1,80 @@
+
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="page-heading">
+    <div>
+        <h1>Admin Dashboard</h1>
+    </div>
+</div>
+
+<div class="dashboard-cards">
+
+    <div class="stat-card blue">
+        <div class="stat-icon"></div>
+        <h3>Total Students</h3>
+        <h1>{{ students }}</h1>
+    </div>
+
+    <div class="stat-card purple">
+        <div class="stat-icon"></div>
+        <h3>Total Staff</h3>
+        <h1>{{ staff }}</h1>
+    </div>
+
+    <div class="stat-card green">
+        <div class="stat-icon"></div>
+        <h3>Total Rooms</h3>
+        <h1>{{ rooms }}</h1>
+    </div>
+
+    <div class="stat-card orange">
+        <div class="stat-icon"></div>
+        <h3>Total Exams</h3>
+        <h1>{{ exams }}</h1>
+    </div>
+
+</div>
+
+<div class="section-heading">
+    <h2>Administration Management</h2>
+</div>
+
+<div class="module-grid">
+
+    <a href="{{ url_for('students') }}" class="management-card">
+        <span></span>
+        <h3>Student Management</h3>
+    </a>
+
+    <a href="{{ url_for('staff') }}" class="management-card">
+        <span></span>
+        <h3>Staff Management</h3>
+    </a>
+
+    <a href="{{ url_for('rooms') }}" class="management-card">
+        <span></span>
+        <h3>Room Management</h3>
+    </a>
+
+    <a href="{{ url_for('subjects') }}" class="management-card">
+        <span></span>
+        <h3>Subject Management</h3>
+    </a>
+
+</div>
+
+<div class="exam-banner">
+    <div>
+        <h2>Examination Management</h2>
+
+    </div>
+
+    <a href="{{ url_for('exam_dashboard') }}">
+    </a>
+</div>
+
+{% endblock %}

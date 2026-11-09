@@ -1,0 +1,20 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="student-container">
+        <h1>{{ title }}</h1>
+
+        {% for label, value in details %}
+            <p><strong>{{ label }}:</strong> {{ value }}</p>
+        {% endfor %}
+
+        <br>
+        <a href="{{ back_url }}">Back</a>
+    </div>
+</body>
+</html>

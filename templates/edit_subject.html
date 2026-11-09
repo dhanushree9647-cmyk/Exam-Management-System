@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Subject</title>
+</head>
+<body>
+    <h1>Edit Subject Details</h1>
+
+    <form method="POST">
+        <p>Subject Name</p>
+        <input type="text" name="subject_name"
+               value="{{ subject.subject_name }}" required>
+
+        <p>Subject Code</p>
+        <input type="text" name="subject_code"
+               value="{{ subject.subject_code }}" required>
+
+        <br><br>
+        <button type="submit">Update Subject</button>
+    </form>
+
+    <br>
+    <a href="{{ url_for('subjects') }}">Back to Subjects</a>
+</body>
+</html>

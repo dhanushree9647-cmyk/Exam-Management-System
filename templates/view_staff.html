@@ -1,0 +1,16 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Staff</title>
+</head>
+<body>
+    <h1>Staff Details</h1>
+
+    <p><b>ID:</b> {{ member.id }}</p>
+    <p><b>Name:</b> {{ member.name }}</p>
+    <p><b>Department:</b> {{ member.department }}</p>
+
+    <a href="{{ url_for('staff') }}">Back to Staff</a>
+</body>
+</html>

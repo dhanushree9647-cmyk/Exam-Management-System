@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Room</title>
+</head>
+<body>
+    <h1>Edit Room Details</h1>
+
+    <form method="POST">
+        <p>Room Name</p>
+        <input type="text" name="room_name"
+               value="{{ room.room_name }}" required>
+
+        <p>Capacity</p>
+        <input type="number" name="capacity"
+               value="{{ room.capacity }}" min="1" required>
+
+        <br><br>
+        <button type="submit">Update Room</button>
+    </form>
+
+    <br>
+    <a href="{{ url_for('rooms') }}">Back to Rooms</a>
+</body>
+</html>

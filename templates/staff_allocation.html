@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Staff Allocation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="student-container">
+
+    <h1>Staff Allocation</h1>
+
+    <form method="POST" action="{{ url_for('staff_allocation') }}" class="student-form">
+
+        <select name="exam_id" required>
+            <option value="">Select Exam</option>
+            {% for exam in exams %}
+            <option value="{{ exam.id }}">
+                {{ exam.subject_name }} - {{ exam.exam_date }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <select name="staff_id" required>
+            <option value="">Select Staff</option>
+            {% for member in staff %}
+            <option value="{{ member.id }}">
+                {{ member.name }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Allocate Staff</button>
+    </form>
+
+    <h2>Staff Allocation List</h2>
+
+    <table class="student-table">
+        <tr>
+            <th>ID</th>
+            <th>Exam ID</th>
+            <th>Subject</th>
+            <th>Room</th>
+            <th>Staff</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for allocation in allocations %}
+        <tr>
+            <td>{{ allocation.id }}</td>
+            <td>{{ allocation.exam_id }}</td>
+            <td>{{ allocation.subject_name }}</td>
+            <td>{{ allocation.room_name }}</td>
+            <td>{{ allocation.staff_name or "Not Assigned" }}</td>
+
+            <td>
+                <details class="action-menu">
+                    <summary>&#8942;</summary>
+                    <div class="action-options">
+                        <a href="{{ url_for('view_staff_allocation', allocation_id=allocation.id) }}">View</a>
+                        <a href="{{ url_for('edit_staff_allocation', allocation_id=allocation.id) }}">Edit</a>
+
+                        <form method="POST"
+                              action="{{ url_for('delete_staff_allocation', allocation_id=allocation.id) }}"
+                              onsubmit="return confirm('Remove this staff assignment?');">
+                            <button type="submit" class="delete-option">Delete</button>
+                        </form>
+                    </div>
+                </details>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <a href="{{ url_for('exam_dashboard') }}">Back to Examination Dashboard</a>
+
+</div>
+</body>
+</html>

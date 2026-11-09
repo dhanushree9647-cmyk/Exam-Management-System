@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Room Allocation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="student-container">
+
+    <h1>Room Allocation</h1>
+
+    <form method="POST" action="{{ url_for('allocations') }}" class="student-form">
+
+        <select name="exam_id" required>
+            <option value="">Select Exam</option>
+            {% for exam in exams %}
+            <option value="{{ exam.id }}">
+                {{ exam.subject_name }} - {{ exam.exam_date }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <select name="room_id" required>
+            <option value="">Select Room</option>
+            {% for room in rooms %}
+            <option value="{{ room.id }}">
+                {{ room.room_name }} - Capacity {{ room.capacity }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Allocate Room</button>
+    </form>
+
+    <h2>Allocated Rooms</h2>
+
+    <table class="student-table">
+        <tr>
+            <th>Allocation ID</th>
+            <th>Exam ID</th>
+            <th>Subject</th>
+            <th>Date</th>
+            <th>Room</th>
+            <th>Capacity</th>
+            <th>Actions</th>
+        </tr>
+
+        {% for allocation in allocations %}
+        <tr>
+            <td>{{ allocation.allocation_id }}</td>
+            <td>{{ allocation.exam_id }}</td>
+            <td>{{ allocation.subject_name }}</td>
+            <td>{{ allocation.exam_date }}</td>
+            <td>{{ allocation.room_name }}</td>
+            <td>{{ allocation.capacity }}</td>
+
+            <td>
+                <details class="action-menu">
+                    <summary>&#8942;</summary>
+                    <div class="action-options">
+                        <a href="{{ url_for('view_allocation', allocation_id=allocation.allocation_id) }}">View</a>
+                        <a href="{{ url_for('edit_allocation', allocation_id=allocation.allocation_id) }}">Edit</a>
+
+                        <form method="POST"
+                              action="{{ url_for('delete_allocation', allocation_id=allocation.allocation_id) }}"
+                              onsubmit="return confirm('Delete this room allocation and its seating records?');">
+                            <button type="submit" class="delete-option">Delete</button>
+                        </form>
+                    </div>
+                </details>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <a href="{{ url_for('exam_dashboard') }}">Back to Examination Dashboard</a>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Room</title>
+</head>
+<body>
+    <h1>Room Details</h1>
+    <p><b>ID:</b> {{ room.id }}</p>
+    <p><b>Room Name:</b> {{ room.room_name }}</p>
+    <p><b>Capacity:</b> {{ room.capacity }}</p>
+    <a href="{{ url_for('rooms') }}">Back to Rooms</a>
+</body>
+</html>

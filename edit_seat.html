@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Student Seating</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<h1>Edit Student Seating</h1>
+
+{% with messages = get_flashed_messages() %}
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+{% endwith %}
+
+<form method="POST">
+
+    <label>Student</label>
+    <select name="student_id" required>
+        {% for student in students %}
+        <option value="{{ student.id }}"
+            {% if student.id == seat.student_id %}selected{% endif %}>
+            {{ student.name }} - {{ student.roll_no }}
+        </option>
+        {% endfor %}
+    </select>
+
+    <br><br>
+
+    <label>Room</label>
+    <select name="room_id" required>
+        {% for room in rooms %}
+        <option value="{{ room.id }}"
+            {% if room.id == seat.room_id %}selected{% endif %}>
+            {{ room.room_name }} (Capacity: {{ room.capacity }})
+        </option>
+        {% endfor %}
+    </select>
+
+    <br><br>
+
+    <label>Seat Number</label>
+    <input type="number"
+           name="seat_number"
+           min="1"
+           value="{{ seat.seat_number }}"
+           required>
+
+    <br><br>
+
+    <button type="submit">Update Seating</button>
+
+</form>
+
+<br>
+
+<a href="{{ url_for('seating') }}">Back to Seating</a>
+
+</body>
+</html>
