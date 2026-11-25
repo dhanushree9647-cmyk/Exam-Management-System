@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}EMS | Examination Management{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+{% if session.get('user_id') %}
+<div class="app-shell">
+  <aside class="sidebar">
+    <a class="brand" href="{{ url_for('dashboard') }}"><span class="brand-mark">◆</span><span><b>EMS</b><small>Exam Management</small></span></a>
+    <nav>
+      <a class="{{ 'active' if active_endpoint=='dashboard' else '' }}" href="{{ url_for('dashboard') }}">⌂ <span>Dashboard</span></a>
+      <a class="{{ 'active' if active_endpoint in ['exams','exam_form','exam_view'] else '' }}" href="{{ url_for('exams') }}">▤ <span>Examinations</span></a>
+      <a class="{{ 'active' if active_endpoint in ['students','student_form','student_view'] else '' }}" href="{{ url_for('students') }}">♟ <span>Students</span></a>
+      <a class="{{ 'active' if active_endpoint in ['rooms','room_form','room_view'] else '' }}" href="{{ url_for('rooms') }}">▣ <span>Rooms</span></a>
+      <a class="{{ 'active' if active_endpoint=='resource_optimization' else '' }}" href="{{ url_for('resource_optimization') }}">⚙ <span>Resource Optimization</span></a>
+      <a class="{{ 'active' if active_endpoint=='allotment' else '' }}" href="{{ url_for('allotment') }}">▥ <span>Allotment</span></a>
+      <a class="{{ 'active' if active_endpoint=='practical' else '' }}" href="{{ url_for('practical') }}">▧ <span>Practical Exam</span></a>
+      <a class="{{ 'active' if active_endpoint in ['staff','staff_form','staff_view'] else '' }}" href="{{ url_for('staff') }}">♙ <span>Staff Management</span></a>
+      <a class="{{ 'active' if active_endpoint in ['staff_duty'] else '' }}" href="{{ url_for('staff_duty') }}">◷ <span>Staff Duty</span></a>
+      <a class="{{ 'active' if active_endpoint in ['reports','export_report'] else '' }}" href="{{ url_for('reports') }}">▥ <span>Reports</span></a>
+      <a class="{{ 'active' if active_endpoint=='settings' else '' }}" href="{{ url_for('settings') }}">⚙ <span>Settings</span></a>
+    </nav>
+    <a class="logout" href="{{ url_for('logout') }}">⇥ <span>Logout</span></a>
+  </aside>
+  <main class="main">
+    <header class="topbar"><div class="top-title">☰ <strong>Examination Management System</strong></div><div class="user-menu">● &nbsp;{{ session.get('username','admin') }} &nbsp;⌄</div></header>
+    <section class="content">
+      {% with messages=get_flashed_messages(with_categories=true) %}
+      {% if messages %}<div class="alerts">{% for category,message in messages %}<div class="alert {{ category }}">{{ message }}<button onclick="this.parentElement.remove()">×</button></div>{% endfor %}</div>{% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+      <footer>Examination Management System <span>All examination timings are in Indian Standard Time (IST).</span></footer>
+    </section>
+  </main>
+</div>
+{% else %}
+{% with messages=get_flashed_messages(with_categories=true) %}{% if messages %}<div class="login-alerts">{% for category,message in messages %}<div class="alert {{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}{% endwith %}
+{% block auth_content %}{% endblock %}
+{% endif %}
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body></html>

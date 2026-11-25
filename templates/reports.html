@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% block content %}
+<div class="page-head"><div><h1>Reports</h1><p>View and download examination, room allotment and staff duty reports.</p></div></div>
+<div class="report-cards"><a class="panel report-card" href="{{ url_for('export_report',kind='exams') }}"><span>▦</span><b>Examination Schedule</b><small>Download CSV</small></a><a class="panel report-card" href="{{ url_for('export_report',kind='allotments') }}"><span>▣</span><b>Room Allotment Report</b><small>Download CSV</small></a><a class="panel report-card" href="{{ url_for('export_report',kind='duties') }}"><span>♟</span><b>Staff Duty Report</b><small>Download CSV</small></a></div>
+<div class="panel"><h2>Report Notes</h2><p class="muted">CSV reports can be opened in Microsoft Excel. The reports use the current records saved in the system.</p></div>
+{% endblock %}

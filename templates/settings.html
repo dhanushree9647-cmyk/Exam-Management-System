@@ -1,0 +1,2 @@
+{% extends "base.html" %}{% block content %}<div class="page-head"><div><h1>Settings</h1><p>Change the administrator password.</p></div></div>
+<form class="panel form-grid narrow" method="post"><label class="span-2">Current Password<input type="password" name="old_password" required></label><label class="span-2">New Password<input type="password" name="new_password" minlength="8" required><small class="muted">Use at least 8 characters.</small></label><div class="form-actions"><button class="btn primary">Change Password</button></div></form>{% endblock %}

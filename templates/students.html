@@ -1,0 +1,66 @@
+
+{% extends "base.html" %}
+{% from "macros.html" import action_menu %}
+
+{% block content %}
+
+<div class="page-head">
+    <div>
+        <h1>Student Management</h1>
+        <p>Manage students using examination-wise USN ranges.</p>
+    </div>
+
+    <a class="btn primary" href="{{ url_for('student_form') }}">
+        ＋ Add Student USN Range
+    </a>
+</div>
+
+<div class="panel">
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Examination</th>
+                    <th>Exam Date</th>
+                    <th>Branch</th>
+                    <th>Semester</th>
+                    <th>From USN</th>
+                    <th>To USN</th>
+                    <th>Student Count</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for r in rows %}
+                <tr>
+                    <td>{{ r.title }}</td>
+                    <td>{{ r.exam_date }}</td>
+                    <td>{{ r.branch }}</td>
+                    <td>{{ r.semester }}</td>
+                    <td>{{ r.from_usn }}</td>
+                    <td>{{ r.to_usn }}</td>
+                    <td>{{ usn_count(r.from_usn, r.to_usn) }}</td>
+                    <td>
+                        {{ action_menu(
+                            url_for('student_view', item_id=r.id),
+                            url_for('student_form', item_id=r.id),
+                            url_for('student_delete', item_id=r.id),
+                            'USN range'
+                        ) }}
+                    </td>
+                </tr>
+
+                {% else %}
+                <tr>
+                    <td colspan="8" class="empty">
+                        No student USN ranges added.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% block content %}<div class="page-head"><div><h1>Examination Details</h1><p>Complete examination schedule and registered USN ranges.</p></div><a class="btn light" href="{{ url_for('exams') }}">← Back</a></div>
+<div class="panel detail-grid">
+{% for label,value in [('Type',item.exam_type),('Title',item.title),('Subject Code',item.subject_code),('Subject Name',item.subject_name),('Branch',item.branch),('Semester',item.semester),('Date',item.exam_date),('Time (IST)',item.start_time~' – '~item.end_time),('Notes',item.notes or '—')] %}<div><small>{{ label }}</small><b>{{ value }}</b></div>{% endfor %}
+</div>
+<div class="panel"><h2>Registered USN Ranges</h2><div class="table-wrap"><table><thead><tr><th>Branch</th><th>Semester</th><th>From USN</th><th>To USN</th><th>Count</th></tr></thead><tbody>{% for b in batches %}<tr><td>{{ b.branch }}</td><td>{{ b.semester }}</td><td>{{ '%03d'|format(b.from_usn) }}</td><td>{{ '%03d'|format(b.to_usn) }}</td><td>{{ b.to_usn-b.from_usn+1 }}</td></tr>{% else %}<tr><td colspan="5" class="empty">No USN ranges registered.</td></tr>{% endfor %}</tbody></table></div></div>{% endblock %}

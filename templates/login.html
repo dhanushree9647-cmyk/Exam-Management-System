@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% block title %}Login | EMS{% endblock %}
+{% block auth_content %}
+<div class="login-page">
+  <div class="login-photo"><div class="photo-shade"><span class="campus-icon">▱</span><h1>Examination Management System</h1><p>Plan · Allocate · Optimize</p></div></div>
+  <form class="login-card" method="post">
+    <div class="login-logo">◆</div><h2>Welcome Back</h2><p>Sign in to continue to EMS</p>
+    <label>Username<input name="username" required autocomplete="username" placeholder="Enter username"></label>
+    <label>Password<input name="password" type="password" required autocomplete="current-password" placeholder="Enter password"></label>
+    <button class="btn primary full">Login</button>
+    <small class="muted">Initial login: admin / Admin@123</small>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}{% block content %}
+<div class="page-head"><div><h1>{{ 'Edit' if item else 'Add' }} Examination</h1><p>All times are entered in Indian Standard Time (IST).</p></div><a class="btn light" href="{{ url_for('exams') }}">← Back</a></div>
+<form class="panel form-grid" method="post">
+<label>Examination Type<select name="exam_type" required><option {% if item and item.exam_type=='Theory' %}selected{% endif %}>Theory</option><option {% if item and item.exam_type=='Practical' %}selected{% endif %}>Practical</option></select></label>
+<label>Examination Title<input name="title" required value="{{ item.title if item else '' }}" placeholder="e.g. III Semester Examination"></label>
+<label>Subject Code<input name="subject_code" required value="{{ item.subject_code if item else '' }}"></label>
+<label>Subject Name<input name="subject_name" required value="{{ item.subject_name if item else '' }}"></label>
+<label>Branch<input name="branch" required value="{{ item.branch if item else '' }}" placeholder="CSE, ISE, ECE"></label>
+<label>Semester<input name="semester" required value="{{ item.semester if item else '' }}"></label>
+<label>Examination Date<input type="date" name="exam_date" required value="{{ item.exam_date if item else '' }}"></label>
+<label>Start Time (IST)<input type="time" name="start_time" required value="{{ item.start_time if item else '' }}"></label>
+<label>End Time (IST)<input type="time" name="end_time" required value="{{ item.end_time if item else '' }}"></label>
+<label class="span-2">Notes / Requirements<textarea name="notes" rows="3">{{ item.notes if item else '' }}</textarea></label>
+<div class="form-actions"><button class="btn primary">Save Examination</button><a class="btn light" href="{{ url_for('exams') }}">Cancel</a></div>
+</form>{% endblock %}

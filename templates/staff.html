@@ -1,0 +1,55 @@
+
+{% extends "base.html" %}
+{% from "macros.html" import action_menu %}
+
+{% block content %}
+
+<div class="page-head">
+    <div>
+        <h1>Staff Management</h1>
+        <p>Maintain examination staff and department details.</p>
+    </div>
+<a class="btn primary" href="{{ url_for('staff_form') }}">＋ Add Staff</a></div>
+
+<div class="panel">
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Staff ID</th>
+                    <th>Staff Name</th>
+                    <th>Designation</th>
+                    <th>Department</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for s in rows %}
+                <tr>
+                    <td>{{ s.staff_code }}</td>
+                    <td>{{ s.staff_name }}</td>
+                    <td>{{ s.designation }}</td>
+                    <td>{{ s.department }}</td>
+                    <td>{{ 'Active' if s.active else 'Inactive' }}</td>
+                    <td>
+                        {{ action_menu(
+                            url_for('staff_view', item_id=s.id),
+                            url_for('staff_form', item_id=s.id),
+                            url_for('staff_delete', item_id=s.id),
+                            'staff record'
+                        ) }}
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="6" class="empty">No staff records added.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

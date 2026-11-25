@@ -1,0 +1,50 @@
+
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-head">
+    <div>
+        <h1>{{ 'Edit' if item else 'Add' }} Staff</h1>
+        <p>Enter staff details.</p>
+    </div>
+    <a class="btn light" href="{{ url_for('staff') }}">← Back</a>
+</div>
+
+<form class="panel form-grid" method="POST">
+
+    <label>
+        Staff ID
+        <input type="text" name="staff_code"
+               value="{{ item.staff_code if item else '' }}"
+               placeholder="S001" required>
+    </label>
+
+    <label>
+        Staff Name
+        <input type="text" name="staff_name"
+               value="{{ item.staff_name if item else '' }}"
+               placeholder="Enter staff name" required>
+    </label>
+
+    <label>
+        Designation
+        <input type="text" name="designation"
+               value="{{ item.designation if item else '' }}"
+               placeholder="Assistant Professor">
+    </label>
+
+    <label>
+        Department
+        <input type="text" name="department"
+               value="{{ item.department if item else '' }}"
+               placeholder="CSE" required>
+    </label>
+
+    <div class="form-actions">
+        <button class="btn primary" type="submit">Save Staff</button>
+        <a class="btn light" href="{{ url_for('staff') }}">Cancel</a>
+    </div>
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% from "macros.html" import action_menu %}{% block content %}
+<div class="page-head"><div><h1>Examination Management</h1><p>Manage theory and practical examination schedules.</p></div><a class="btn primary" href="{{ url_for('exam_form') }}">＋ Add Examination</a></div>
+<div class="panel"><div class="table-wrap"><table><thead><tr><th>Type</th><th>Date</th><th>Time (IST)</th><th>Subject Code</th><th>Subject Name</th><th>Branch</th><th>Semester</th><th>Actions</th></tr></thead><tbody>
+{% for e in rows %}<tr><td><span class="pill">{{ e.exam_type }}</span></td><td>{{ e.exam_date }}</td><td>{{ e.start_time }} – {{ e.end_time }}</td><td>{{ e.subject_code }}</td><td>{{ e.subject_name }}</td><td>{{ e.branch }}</td><td>{{ e.semester }}</td><td>{{ action_menu(url_for('exam_view',item_id=e.id),url_for('exam_form',item_id=e.id),url_for('exam_delete',item_id=e.id),'examination') }}</td></tr>
+{% else %}<tr><td colspan="8" class="empty">No examinations found. Add your first examination.</td></tr>{% endfor %}
+</tbody></table></div></div>{% endblock %}

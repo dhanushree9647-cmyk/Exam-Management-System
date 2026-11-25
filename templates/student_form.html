@@ -1,0 +1,68 @@
+
+{% extends "base.html" %}
+{% block content %}
+
+<div class="page-head">
+    <div>
+        <h1>{{ 'Edit' if item else 'Add' }} Student USN Range</h1>
+        <p>Example: 1SI23IS001–1SI23IS015 represents 15 students.</p>
+    </div>
+    <a class="btn light" href="{{ url_for('students') }}">← Back</a>
+</div>
+
+<form class="panel form-grid" method="post">
+
+    <label class="span-2">
+        Examination
+        <select name="exam_id" required>
+            <option value="">Select examination</option>
+            {% for e in exams %}
+            <option value="{{ e.id }}"
+                {% if item and item.exam_id == e.id %}selected{% endif %}>
+                {{ e.title }} — {{ e.exam_date }}
+            </option>
+            {% endfor %}
+        </select>
+    </label>
+
+    <label>
+        Branch
+        <input name="branch" required
+               value="{{ item.branch if item else '' }}"
+               placeholder="ISE">
+    </label>
+
+    <label>
+        Semester
+        <input type="number" name="semester" min="1" max="8"
+               required value="{{ item.semester if item else '' }}"
+               placeholder="5">
+    </label>
+
+    <label>
+        From USN Number
+        <input type="text" name="from_usn"
+               value="{{ item.from_usn if item else '' }}"
+               placeholder="1SI23IS001"
+               pattern="[A-Za-z0-9]+"
+               required>
+    </label>
+
+    <label>
+        To USN Number
+        <input type="text" name="to_usn"
+               value="{{ item.to_usn if item else '' }}"
+               placeholder="1SI23IS015"
+               pattern="[A-Za-z0-9]+"
+               required>
+    </label>
+
+    <div class="form-actions">
+        <button class="btn primary" type="submit">
+            Save Student List
+        </button>
+        <a class="btn light" href="{{ url_for('students') }}">Cancel</a>
+    </div>
+
+</form>
+{% endblock %}

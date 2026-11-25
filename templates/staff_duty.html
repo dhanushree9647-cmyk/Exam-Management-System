@@ -1,0 +1,11 @@
+{% extends "base.html" %}{% block content %}
+<div class="page-head"><div><h1>Staff Duty Allocation</h1><p>Assign staff to examination duties. Overlapping staff schedules are blocked automatically.</p></div></div>
+<form class="panel form-grid" method="post">
+<label class="span-2">Examination<select name="exam_id" required><option value="">Select examination</option>{% for e in exams %}<option value="{{ e.id }}">{{ e.title }} — {{ e.exam_date }} — {{ e.start_time }}–{{ e.end_time }} IST</option>{% endfor %}</select></label>
+<label>Staff Member<select name="staff_id" required><option value="">Select staff</option>{% for s in staff %}<option value="{{ s.id }}">{{ s.staff_code }} — {{ s.staff_name }} ({{ s.department }})</option>{% endfor %}</select></label>
+<label>Duty Role<select name="duty_role"><option>Invigilator</option><option>Chief Superintendent</option><option>Squad</option><option>Technical Support</option><option>Practical Examiner</option></select></label>
+<label>Room (optional)<select name="room_id"><option value="">Not specified</option>{% for r in rooms %}<option value="{{ r.id }}">{{ r.room_no }} — {{ r.block }}</option>{% endfor %}</select></label>
+<div class="form-actions"><button class="btn primary">Assign Staff Duty</button></div>
+</form>
+<div class="panel"><h2>Assigned Staff Duties</h2><div class="table-wrap"><table><thead><tr><th>Staff ID</th><th>Staff Name</th><th>Examination</th><th>Date</th><th>Time (IST)</th><th>Role</th><th>Room</th><th>Action</th></tr></thead><tbody>{% for d in rows %}<tr><td>{{ d.staff_code }}</td><td>{{ d.staff_name }}</td><td>{{ d.title }}</td><td>{{ d.exam_date }}</td><td>{{ d.start_time }}–{{ d.end_time }}</td><td>{{ d.duty_role }}</td><td>{{ d.room_no or '—' }}</td><td><form method="post" action="{{ url_for('staff_duty_delete',item_id=d.id) }}" onsubmit="return confirm('Remove this duty assignment?')"><button class="dots" title="Remove duty">⋮</button></form></td></tr>{% else %}<tr><td colspan="8" class="empty">No staff duties assigned.</td></tr>{% endfor %}</tbody></table></div></div>
+{% endblock %}

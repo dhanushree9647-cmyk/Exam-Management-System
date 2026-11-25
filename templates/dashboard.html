@@ -1,0 +1,27 @@
+{% extends "base.html" %}{% block content %}
+<div class="welcome-row">
+  <div class="welcome panel"><div class="welcome-icon">◆</div><div><h1>Welcome to<br>Examination Management System</h1><p>Plan &nbsp;·&nbsp; Allocate &nbsp;·&nbsp; Optimize</p></div></div>
+  <div class="stat panel"><span>▦</span><div><small>Total Examinations</small><b>{{ stats.exams }}</b></div></div>
+  <div class="stat panel"><span>♟</span><div><small>Total Students</small><b>{{ stats.students }}</b></div></div>
+  <div class="stat panel"><span>▣</span><div><small>Total Rooms</small><b>{{ stats.rooms }}</b></div></div>
+  <div class="stat panel"><span>♙</span><div><small>Total Staff</small><b>{{ stats.staff }}</b></div></div>
+</div>
+<div class="dashboard-grid">
+  <section class="panel"><div class="section-head"><h2>▦ &nbsp;Upcoming Examinations</h2><a class="btn small primary" href="{{ url_for('exams') }}">View All →</a></div>
+    <div class="table-wrap"><table><thead><tr><th>Date</th><th>Time (IST)</th><th>Subject Code</th><th>Subject Name</th><th>Branch</th><th>Semester</th></tr></thead><tbody>
+    {% for e in upcoming %}<tr><td>{{ e.exam_date }}</td><td>{{ e.start_time }} – {{ e.end_time }}</td><td>{{ e.subject_code }}</td><td>{{ e.subject_name }}</td><td>{{ e.branch }}</td><td>{{ e.semester }}</td></tr>{% else %}<tr><td colspan="6" class="empty">No examinations added yet.</td></tr>{% endfor %}
+    </tbody></table></div>
+  </section>
+  <section class="panel"><div class="section-head"><h2>▥ &nbsp;Quick Actions</h2></div><div class="quick-grid">
+    <a href="{{ url_for('exam_form') }}">▦<b>Add Examination</b></a><a href="{{ url_for('student_form') }}">♟<b>Add USN Range</b></a><a href="{{ url_for('room_form') }}">▣<b>Add Room</b></a><a href="{{ url_for('staff_form') }}">♙<b>Add Staff</b></a>
+  </div></section>
+</div>
+<div class="dashboard-grid">
+  <section class="panel"><div class="section-head"><h2>Examination Management</h2><a class="btn small primary" href="{{ url_for('exam_form') }}">＋ Add Examination</a></div><p class="muted">Create and manage theory and practical examination schedules.</p><a class="text-link" href="{{ url_for('exams') }}">Open examinations →</a></section>
+  <section class="panel"><div class="section-head"><h2>Student Management</h2><a class="btn small primary" href="{{ url_for('student_form') }}">＋ Add Students</a></div><p class="muted">Maintain branch-wise USN ranges instead of individual student names.</p><a class="text-link" href="{{ url_for('students') }}">Open student ranges →</a></section>
+  <section class="panel"><div class="section-head"><h2>Room Management</h2><a class="btn small primary" href="{{ url_for('room_form') }}">＋ Add Room</a></div><p class="muted">Maintain room number, block and seating capacity.</p><a class="text-link" href="{{ url_for('rooms') }}">Open rooms →</a></section>
+  <section class="panel"><div class="section-head"><h2>Resource Optimization</h2><a class="btn small primary" href="{{ url_for('resource_optimization') }}">Allocate Rooms</a></div><p class="muted">Automatically assign branch-wise USN ranges to rooms while checking room availability.</p><a class="text-link" href="{{ url_for('resource_optimization') }}">Run room allocation →</a></section>
+  <section class="panel"><div class="section-head"><h2>Staff Management</h2><a class="btn small primary" href="{{ url_for('staff_form') }}">＋ Add Staff</a></div><p class="muted">Manage staff details and departments.</p><a class="text-link" href="{{ url_for('staff') }}">Open staff →</a></section>
+  <section class="panel"><div class="section-head"><h2>Staff Duty</h2><a class="btn small primary" href="{{ url_for('staff_duty') }}">Assign Duty</a></div><p class="muted">Assign examination duties with automatic overlapping-time checks.</p><a class="text-link" href="{{ url_for('staff_duty') }}">Open staff duty →</a></section>
+</div>
+{% endblock %}
